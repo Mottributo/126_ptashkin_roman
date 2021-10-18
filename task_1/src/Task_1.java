@@ -14,19 +14,9 @@ public class Task_1 implements Task_1_base {
     }
     @Override
     public boolean subtask_2_if(int year) {
-        if ((year % 4 == 0) && (year % 100 != 0)) {
-            return true;
-        }
-        else if (year % 400 == 0) {
-            return true;
-        }
-        else return false;
+        return (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0));
         // Проверить, является ли год, переданный в параметре year, високосным.
         // Високосный год - это год, кратный четырем, но не кратный 100, либо кратный 400.
-        // Альтернативная имплементация -
-        // public boolean subtask_2_if(int year) {
-        //    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
-        // }
     }
     @Override
     public int subtask_3_if(double x, double y, double left_up_x, double left_up_y, double width, double height) {
@@ -113,18 +103,18 @@ public class Task_1 implements Task_1_base {
     @Override
     public int subtask_7_if(double vx, double vy, double vz, double speed, double time, double wall) {
 
-        double hypot3d = Math.sqrt(Math.pow(vx ,2) + Math.pow(vy ,2) + Math.pow(vz ,2));
+        double pointY = (wall / vx) * vy;
+        double pointZ = (wall / vx) * vz;
+        double hypot3D = Math.sqrt(Math.pow(wall, 2) + Math.pow(pointY, 2) + Math.pow(pointZ, 2));
 
-        if (time <= 0)  {
+        if ((speed <= 0) || (time <= 0)) {
             return 2;
-            // Время не может быть отрицательно.
         }
-        else if (Math.signum(vx) != Math.signum(wall)) {
-            return 0;
-            // Снаряд и стена не должны быть в противоположных сторонах.
-        }
-        else if (((speed * (vx / hypot3d)) * wall) <= time) {
-            return 1;
+        else if  (vx != 0) {
+            if ((hypot3D / speed - time) > 0.000001)
+                return 0;
+            else
+                return 1;
         }
         return 0;
         // Проверить, достигнет ли снаряд, летяший из точки (0, 0, 0)
