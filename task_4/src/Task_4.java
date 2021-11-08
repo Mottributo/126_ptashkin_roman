@@ -100,30 +100,46 @@ public class Task_4 implements Task_4_base {
         // O(2n) вместо O(n^2).
 
         List<Integer> biggerArray = new ArrayList<>();
-        int stuck = 0;
+        int iter = 0;
+        int memory = 0;
         if (arr1.length > arr2.length) {
             int[] temp = arr1;
             arr1 = arr2;
             arr2 = temp;
         }
+        if (arr1.length == 0) return arr2;
+        if (arr2.length == 0) return arr1;
 
-        for (int i = 0; i < arr1.length; i++) {
-            for (int j = stuck; j <arr2.length; j++) {
-                if (arr1[i] >= arr2[j]) {
-                    biggerArray.add(arr2[j]);
-                }
-                else {
-                    biggerArray.add(arr1[i]);
-                    stuck = j;
-                    break;
-                }
+        while ((iter < arr1.length) && (memory < arr2.length)) {
+            if (arr1[iter] >= arr2[memory]) {
+                biggerArray.add(arr2[memory]);
+                ++memory;
+            }
+            else {
+                biggerArray.add(arr1[iter]);
+                ++iter;
+            }
+            //else {
+            // biggerArray.add(arr2[memory]);
+            //  ++memory;
+            //}
+        }
+        if (memory < arr2.length) {
+            for (int i = memory; i < arr2.length; i++) {
+                biggerArray.add(arr2[i]);
             }
         }
-        for (int k = stuck; k < arr2.length; k++) biggerArray.add(arr2[k]);
+        else if (iter < arr1.length) {
+            for (int i = iter; i < arr1.length; i++) {
+                biggerArray.add(arr1[i]);
+            }
+        }
+
         int[] result = new int[biggerArray.size()];
         for (int i = 0; i < biggerArray.size(); i++) {
             result[i] = biggerArray.get(i);
         }
         return result;
     }
+
 }
