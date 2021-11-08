@@ -99,17 +99,21 @@ public class Task_4 implements Task_4_base {
         // размеров arr1 и arr2, а не их произведению.
         // O(2n) вместо O(n^2).
 
+        // Variables initialization.
         List<Integer> biggerArray = new ArrayList<>();
         int iter = 0;
         int memory = 0;
+        // Swapping, for a shorter array to get the first.
         if (arr1.length > arr2.length) {
             int[] temp = arr1;
             arr1 = arr2;
             arr2 = temp;
         }
+        // Catching empty arrays.
         if (arr1.length == 0) return arr2;
         if (arr2.length == 0) return arr1;
 
+        // Main sorting loop.
         while ((iter < arr1.length) && (memory < arr2.length)) {
             if (arr1[iter] >= arr2[memory]) {
                 biggerArray.add(arr2[memory]);
@@ -119,10 +123,7 @@ public class Task_4 implements Task_4_base {
                 biggerArray.add(arr1[iter]);
                 ++iter;
             }
-            //else {
-            // biggerArray.add(arr2[memory]);
-            //  ++memory;
-            //}
+        //Adding leftover arrays values.
         }
         if (memory < arr2.length) {
             for (int i = memory; i < arr2.length; i++) {
@@ -135,6 +136,7 @@ public class Task_4 implements Task_4_base {
             }
         }
 
+        // Reformatting ArrayList to int[], and returning.
         int[] result = new int[biggerArray.size()];
         for (int i = 0; i < biggerArray.size(); i++) {
             result[i] = biggerArray.get(i);
