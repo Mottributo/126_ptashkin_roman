@@ -23,6 +23,31 @@ public class DealLedgerTests extends Assert {
         assertEquals(0, dealLedger.getAllDealsID().length());
     }
     @Test
+    public void makeProperDealLedger_getDealSum() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("20", "20000101");
+        dealLedger.getDeal("20").addDoc(100, "1", DocType.ERRAND, "20010101");
+        dealLedger.getDeal("20").addDoc(20, "2", DocType.ORDER, "20010101");
+        dealLedger.getDeal("20").addDoc(3, "3", DocType.ORDER, "20010101");
+        assertEquals(123, dealLedger.getDeal("20").getDocsSum());
+    }
+    @Test
+    public void makeProperDealLedger_getAllDealsID_forEach_getAllDocsID() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("20", "20000101");
+        dealLedger.getDeal("20").addDoc(100, "2", DocType.ERRAND, "20010101");
+        dealLedger.getDeal("20").addDoc(20, "1", DocType.ORDER, "20010101");
+        dealLedger.getDeal("20").addDoc(3, "3", DocType.ORDER, "20010101");
+        dealLedger.addDeal("30", "20010101");
+        dealLedger.getDeal("30").addDoc(21, "1", DocType.ERRAND, "20201212");
+        String[] dealIDs = {"20", "30"};
+        String[] docIDs0 = {"2", "1", "3"};
+        String[] docIDs1 = {"1"};
+        assertArrayEquals(dealIDs, dealLedger.getAllDealsID());
+        assertArrayEquals(docIDs0, dealLedger.getDeal(dealLedger.getAllDealsID()[0]).getAllDocsID());
+        assertArrayEquals(docIDs1, dealLedger.getDeal(dealLedger.getAllDealsID()[1]).getAllDocsID());
+    }
+    @Test
     public void addDeal_getAllDeals_LengthEqualsOne_IsTheSameDeal() {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("ABC888", "20000101");
@@ -63,6 +88,14 @@ public class DealLedgerTests extends Assert {
         dealLedger.addDeal("ABC888", "20000101");
         assertEquals("20000101", dealLedger.getDeal("ABC888").getDate());
     }
+    @Test
+    public void addDeal_setDealDate() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("ABC888", "20000101");
+        dealLedger.getDeal("ABC888").setDate("20010101");
+        assertEquals("20000102", dealLedger.getDeal("ABC888").getDate());
+    }
+
 
     // --------------------- DATE TESTS ----------------------.
     @Test(expected = Exception.class)
@@ -116,10 +149,24 @@ public class DealLedgerTests extends Assert {
         dealLedger.addDeal("1", "");
     }
     @Test(expected = Exception.class)
+    public void changeDealDateToWrongOne_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20010101");
+        dealLedger.getDeal("1").setDate("234ng9f4fion");
+    }
+    @Test(expected = Exception.class)
     public void addDocumentToDeal_WithDateLessThanOfTheDocument_raisesException() {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("1", "20201010");
         dealLedger.addDocument(500, "aidi", DocType.ERRAND, "20201009");
+    }
+    @Test(expected = Exception.class)
+    public void addDeal_setDealDate_youngerThanTheOldestDocument_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("ABC888", "20000101");
+        dealLedger.getDeal("ABC888").addDoc(678, "9", DocType.ERRAND, "20050101");
+        dealLedger.getDeal("ABC888").addDoc(678, "9", DocType.ERRAND, "20041231");
+        dealLedger.getDeal("ABC888").setDate("20050101");
     }
     // ---------------- THE END OF DATE TESTS -----------------
 
@@ -153,6 +200,25 @@ public class DealLedgerTests extends Assert {
         dealLedger.addDeal("1", "20031230");
         dealLedger.getDeal("1").addDoc(500, "2", DocType.ERRAND, "20031231");
         dealLedger.getDeal("1").addDoc(460, "2", DocType.ORDER, "20041231");
+    }
+    @Test(expected = Exception.class)
+    public void addDoc_withTheNegativeSum_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20031230");
+        dealLedger.getDeal("1").addDoc(-1, "2", DocType.ERRAND, "20031231");
+    }
+    @Test(expected = Exception.class)
+    public void addDoc_withTheZeroSum_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20031230");
+        dealLedger.getDeal("1").addDoc(0, "2", DocType.ERRAND, "20031231");
+    }
+    @Test(expected = Exception.class)
+    public void addDoc_setDocDateOlderThanDealDate_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20031230");
+        dealLedger.getDeal("1").addDoc(1, "2", DocType.ERRAND, "20031231");
+        dealLedger.getDeal("1").getDoc("2").setDate("20010101");
     }
     // -------------- THE END OF EXCEPTIONS TESTS -------------
 
@@ -195,5 +261,18 @@ public class DealLedgerTests extends Assert {
         deal.addDoc(560, "D4", DocType.ERRAND, "20201215");
         String[] test = {"A1", "B2", "C3", "D4"};
         assertArrayEquals(test, deal.getAllDocsID());
+    }
+    @Test
+    public void addDocument_setNewSumTypeDate_getSumTypeDate() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("20", "20000101");
+        dealLedger.getDeal("20").addDoc(100, "2", DocType.ERRAND, "20010101");
+        Document test = dealLedger.getDeal("20").getDoc("2");
+        test.setSum(200);
+        test.setType(DocType.ORDER);
+        test.setDate("99991212");
+        assertEquals(200, test.getSum());
+        assertEquals(DocType.ORDER, test.getType());
+        assertEquals("99991212", test.getDate());
     }
 }
