@@ -20,7 +20,7 @@ public class DealLedgerTests extends Assert {
     @Test
     public void createEmptyDealLedger_getAllDeals_LengthEqualsZero() {
         DealLedger dealLedger = new DealLedger();
-        assertEquals(0, dealLedger.getAllDealsID().length());
+        assertEquals(0, dealLedger.getAllDealsID().length);
     }
     @Test
     public void makeProperDealLedger_getDealSum() {
@@ -51,7 +51,7 @@ public class DealLedgerTests extends Assert {
     public void addDeal_getAllDeals_LengthEqualsOne_IsTheSameDeal() {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("ABC888", "20000101");
-        assertEquals(1, dealLedger.getAllDealsID().length());
+        assertEquals(1, dealLedger.getAllDealsID().length);
         assertEquals("ABC888", dealLedger.getAllDealsID()[0]);
     }
     @Test
@@ -59,7 +59,7 @@ public class DealLedgerTests extends Assert {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("ABC888", "20000101");
         dealLedger.removeDeal("ABC888");
-        assertEquals(0, dealLedger.getAllDealsID().length());
+        assertEquals(0, dealLedger.getAllDealsID().length);
     }
     @Test
     public void addDeals_removeDeals_getAllDeals_InTheOrderOfBeingAdded0() {
@@ -152,13 +152,13 @@ public class DealLedgerTests extends Assert {
     public void changeDealDateToWrongOne_raisesException() {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("1", "20010101");
-        dealLedger.getDeal("1").setDate("234ng9f4fion");
+        dealLedger.getDeal("1").setDate("234ng9f4fire");
     }
     @Test(expected = Exception.class)
     public void addDocumentToDeal_WithDateLessThanOfTheDocument_raisesException() {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("1", "20201010");
-        dealLedger.addDocument(500, "aidi", DocType.ERRAND, "20201009");
+        dealLedger.getDeal("1").addDoc(500, "audi", DocType.ERRAND, "20201009");
     }
     @Test(expected = Exception.class)
     public void addDeal_setDealDate_youngerThanTheOldestDocument_raisesException() {
@@ -192,7 +192,7 @@ public class DealLedgerTests extends Assert {
     public void getDealByID_thatDoesNotExist_raisesException() {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("1", "20031230");
-        Deal test = dealLedger.getDealByID("2");
+        dealLedger.getDeal("2");
     }
     @Test(expected = Exception.class)
     public void addDoc_withTheExistingID_raisesException() {
@@ -220,6 +220,34 @@ public class DealLedgerTests extends Assert {
         dealLedger.getDeal("1").addDoc(1, "2", DocType.ERRAND, "20031231");
         dealLedger.getDeal("1").getDoc("2").setDate("20010101");
     }
+    @Test(expected = Exception.class)
+    public void addDeal_withNullID_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal(null, "20031230");
+    }
+    @Test(expected = Exception.class)
+    public void addDeal_withNullDate_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", null);
+    }
+    @Test(expected = Exception.class)
+    public void addDoc_withNullID_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20031230");
+        dealLedger.getDeal("1").addDoc(10, null, DocType.ERRAND, "20031231");
+    }
+    @Test(expected = Exception.class)
+    public void addDoc_withNullDocType_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20031230");
+        dealLedger.getDeal("1").addDoc(10, "2", null, "20031231");
+    }
+    @Test
+    public void addDoc_withNullDate_raisesException() {
+        DealLedger dealLedger = new DealLedger();
+        dealLedger.addDeal("1", "20031230");
+        dealLedger.getDeal("1").addDoc(10, "2", DocType.ERRAND, null);
+    }
     // -------------- THE END OF EXCEPTIONS TESTS -------------
 
     @Test
@@ -227,7 +255,7 @@ public class DealLedgerTests extends Assert {
         DealLedger dealLedger = new DealLedger();
         dealLedger.addDeal("1", "12121212");
         Deal deal = dealLedger.getDeal("1");
-        assertEquals(0, deal.getAllDocsID().length());
+        assertEquals(0, deal.getAllDocsID().length);
     }
     @Test
     public void addDocument_DealReturnsDocument() {
@@ -236,7 +264,7 @@ public class DealLedgerTests extends Assert {
         Deal deal = dealLedger.getDeal("1");
 
         deal.addDoc(500, "A1", DocType.ERRAND, "20201212");
-        assertEquals(1, deal.getAllDocsID().length());
+        assertEquals(1, deal.getAllDocsID().length);
         assertEquals("20201212", deal.getDoc("A1").getDate());
         assertEquals(500, deal.getDoc("A1").getSum());
         assertEquals(DocType.ERRAND, deal.getDoc("A1").getType());
