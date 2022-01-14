@@ -23,10 +23,11 @@ public class Deal {
     public void setDate(String date) throws IllegalArgumentException {
         if (!DealLedger.isDateCorrect(date)) throw new IllegalArgumentException(
                 "The date is incorrect. \n" +
-                "It should be a number of YYYYMMDD format (the YYYY year should be in range of 0001-9999, \n" +
-                "the MM month should be in range of 01-12 \n" +
+                "It should be a number of YYYYMMDD format:\n" +
+                "the YYYY year should be in range of 0001-9999,\n" +
+                "the MM month should be in range of 01-12,\n" +
                 "and the DD day should be in range of 01-28-29-30-31 depending on the month, \n" +
-                "and the date of the deal should be no younger than the date of the oldest child document."
+                "and the date of the deal should be no younger than the date of the oldest child document (if any)"
         );
         this.stringDate = date;
     }
