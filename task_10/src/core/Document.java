@@ -47,7 +47,8 @@ public class Document {
         this.sum = sum;
     }
     public void setType(DocType type) {
-        if (type == null) {throw new NullPointerException();}
+        if (type == null) {throw new NullPointerException("You shouldn't see this error.\n +" +
+                "You somehow have passed a wrong enumerator type.");}
         this.type = type;
     }
 

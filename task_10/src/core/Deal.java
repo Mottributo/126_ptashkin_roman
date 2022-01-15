@@ -22,25 +22,30 @@ public class Deal {
 
     public void setDate(String date) throws IllegalArgumentException {
         if (!DealLedger.isDateCorrect(date)) throw new IllegalArgumentException(
-                "The date is incorrect. \n" +
-                "It should be a number of YYYYMMDD format:\n" +
-                "the YYYY year should be in range of 0001-9999,\n" +
-                "the MM month should be in range of 01-12,\n" +
-                "and the DD day should be in range of 01-28-29-30-31 depending on the month, \n" +
-                "and the date of the deal should be no younger than the date of the oldest child document (if any)"
+                        """
+                        The date provided is incorrect!
+                        It should be a number of YYYYMMDD format:
+                        the YYYY year should be in range of 0001-9999,
+                        the MM month should be in range of 01-12
+                        and the DD day should be in range of 01-28-29-30-31 depending on the month."""
         );
         this.stringDate = date;
     }
     public void addDoc(int sum, String id, DocType type, String date) {
         Document doc = new Document(this, date, type, sum);
-        if (id == null) {throw new NullPointerException();}
-        if (children.containsKey(id)) {throw new IllegalArgumentException();}
-        if (Integer.parseInt(date) < Integer.parseInt(this.stringDate)) {throw new IllegalArgumentException();}
+        if (id == null) {throw new NullPointerException("You shouldn't see this error.\n" + "You somehow have passed a null value into the ID field.");}
+        if (children.containsKey(id)) {throw new IllegalArgumentException("The document with this ID already exists!");}
+        if (Integer.parseInt(date) < Integer.parseInt(this.stringDate)) {
+                throw new IllegalArgumentException(
+                "The date is incorrect!\n" +
+                "It should be no older than the date of the parent deal."
+                );
+            }
         children.put(id, doc);
     }
     public void removeDoc(String id) {
-        if (id == null) {throw new NullPointerException();}
-        if (!children.containsKey(id)) {throw new IllegalArgumentException();}
+        if (id == null) {throw new NullPointerException("You shouldn't see this error.\n" + "You somehow have passed a null value into the ID field.");}
+        if (!children.containsKey(id)) {throw new IllegalArgumentException("There's no such a document with this ID in this deal!");}
         children.remove(id);
 
     }

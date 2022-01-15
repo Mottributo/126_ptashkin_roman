@@ -21,16 +21,17 @@ public class DealLedger {
 
     public void addDeal(String id, String date) {
         Deal deal = new Deal(date);
-        if (id == null) {throw new NullPointerException();}
-        if (children.containsKey(id)) {throw new IllegalArgumentException();}
+        if (id == null) {throw new NullPointerException("You shouldn't see this error.\n +" +
+                "You somehow have passed a null value in ID field.");}
+        if (children.containsKey(id)) {throw new IllegalArgumentException("There is already a deal with this ID!");}
         children.put(id, deal);
     }
     public void removeDeal(String id) throws NullPointerException {
-        if (children.get(id) == null) throw new NullPointerException();
+        if (children.get(id) == null) throw new NullPointerException("There is no such a deal with this ID!");
         children.remove(id);
     }
     public Deal getDeal(String id) throws NullPointerException {
-        if (children.get(id) == null) throw new NullPointerException();
+        if (children.get(id) == null) throw new NullPointerException("There is no such a deal with this ID!");
         return children.get(id);
 
     }
