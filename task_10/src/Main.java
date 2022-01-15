@@ -6,7 +6,6 @@ public class Main {
         DealLedger dealLedger = new DealLedger();
         Scanner scanner = new Scanner(System.in);
         UserInterface ui = new UserInterface(scanner, dealLedger);
-        ui.addDealDialogue("firstTime");
-        ui.commandSelection("dealLedgerLevel");
+        ui.initiate();
     }
 }
