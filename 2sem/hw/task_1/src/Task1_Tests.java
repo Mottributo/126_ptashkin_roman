@@ -148,6 +148,13 @@ public class Task1_Tests extends Assert {
         dyna.popBack();
         Assert.assertEquals(0, dyna.getSize());
     }
+    @Test
+    public void insertElement_intoTail_successful() {
+        DynamicArray<String> dyna = new DynamicArray<>(2);
+        dyna.set(0, "stuff");
+        dyna.set(1, " is");
+        dyna.insert(1, "middle");
+    }
 
     @Test
     public void create_DynArrayWithNegativeSize_raiseException() {
