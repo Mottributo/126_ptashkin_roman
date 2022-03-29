@@ -34,7 +34,7 @@ public class Task1_Tests extends Assert {
         Assert.assertNull(dyna.get(0));
     }
     @Test
-    public void addElements_returnProperValue() {
+    public void setElements_returnProperValue() {
         DynamicArray<Object> dyna = new DynamicArray<>(4);
         dyna.set(0, "data");
         dyna.set(1, "data1");
@@ -45,7 +45,7 @@ public class Task1_Tests extends Assert {
         Assert.assertEquals(null, dyna.get(3));
     }
     @Test
-    public void addElements_removingElements_returnsProperSize() {
+    public void setElements_removingElements_returnsProperSize() {
         DynamicArray<Object> dyna = new DynamicArray<>(4);
         dyna.set(0, "data");
         dyna.set(1, "data1");
@@ -62,7 +62,7 @@ public class Task1_Tests extends Assert {
         Assert.assertEquals(0, dyna.getSize());
     }
     @Test
-    public void addElements_resize_returnsProperSize_elementsAreLost() {
+    public void setElements_resize_returnsProperSize_elementsAreLost() {
         DynamicArray<Object> dyna = new DynamicArray<>(4);
         dyna.set(0, "data");
         dyna.set(1, "data1");
@@ -76,7 +76,7 @@ public class Task1_Tests extends Assert {
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.get(3));
     }
     @Test
-    public void addGetRemoveElement_withIndex0_successful() {
+    public void setGetRemoveElement_withIndex0_successful() {
         DynamicArray<Object> dyna = new DynamicArray<>();
         dyna.set(0, "data");
         Assert.assertEquals("data", dyna.get(0));
@@ -91,15 +91,15 @@ public class Task1_Tests extends Assert {
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.get(0));
     }
     @Test
-    public void addElement_withLastIndex_successful() {
-        DynamicArray<Object> dyna = new DynamicArray<>(1337);
+    public void pushBackElement_withLastIndex_successful() {
+        DynamicArray<String> dyna = new DynamicArray<>(1337);
         dyna.pushBack("data");
         Assert.assertEquals("data", dyna.get(1337));
 
     }
     @Test
-    public void RemoveElement_withLastIndex_successful() {
-        DynamicArray<Object> dyna = new DynamicArray<>(1337);
+    public void pushBackRemoveElement_withLastIndex_successful() {
+        DynamicArray<String> dyna = new DynamicArray<>(1337);
         dyna.pushBack( "data");
         dyna.remove(1337);
         Assert.assertEquals(1337, dyna.getSize());
@@ -108,7 +108,7 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void insertElement_updatesSize_shiftsCorrectly() {
-        DynamicArray<Object> dyna = new DynamicArray<>();
+        DynamicArray<String> dyna = new DynamicArray<>();
         dyna.insert(dyna.getSize() - 1, "data0");
         dyna.insert(dyna.getSize() - 1, "data1");
         dyna.insert(dyna.getSize() - 1, "data2");
@@ -127,7 +127,7 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void pushBack_changesSize_addsElementToTheEnd() {
-        DynamicArray<Object> dyna = new DynamicArray<>();
+        DynamicArray<String> dyna = new DynamicArray<>();
         dyna.pushBack("stuff");
         dyna.pushBack(" is");
         dyna.pushBack(" weird");
@@ -140,8 +140,8 @@ public class Task1_Tests extends Assert {
         Assert.assertEquals(5, dyna.getSize());
     }
     @Test
-    public void popBack_decreasesSize_makesInaccessible() {
-        DynamicArray<Object> dyna = new DynamicArray<>(2);
+    public void set_popBackElement_decreasesSize_makesInaccessible() {
+        DynamicArray<String> dyna = new DynamicArray<>(2);
         dyna.set(0, "stuff");
         dyna.set(1, " is");
         dyna.popBack();
@@ -165,17 +165,17 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void insertElementIntoNegativeIndex_raisesException() {
-        DynamicArray<Object> dyna = new DynamicArray<>();
+        DynamicArray<String> dyna = new DynamicArray<>();
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.insert(-1, "DATA_CORRUPTED"));
     }
     @Test
     public void insertElementWithIndexHigherThanSize_raisesException() {
-        DynamicArray<Object> dyna = new DynamicArray<>();
+        DynamicArray<String> dyna = new DynamicArray<>();
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.insert(1, "DATA_CORRUPTED"));
     }
     @Test
     public void setElement_withIndexHigherThanSize_raisesException() {
-        DynamicArray<Object> dyna = new DynamicArray<>(1000);
+        DynamicArray<String> dyna = new DynamicArray<>(1000);
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.set(1000, "DATA_CORRUPTED"));
     }
     @Test
@@ -241,20 +241,20 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void createDLL_removeElement_isEmpty() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
         dll.pushBack("some element");
         dll.remove(dll.getHead());
         Assert.assertEquals(true, dll.isEmpty());
     }
     @Test
     public void createDLL_addElement_isNotEmpty() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
         dll.pushBack("some element");
         Assert.assertEquals(false, dll.isEmpty());
     }
     @Test
     public void DLL_pushBack_sizeIsCorrect_CorrectPosition() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<Integer> dll = new DoubleLinkedList<>();
         dll.pushBack(333);
         dll.pushBack(222);
         dll.pushBack(111);
@@ -265,7 +265,7 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_removeElement_sizeIsCorrect_correctPositioning() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<Integer> dll = new DoubleLinkedList<>();
         dll.pushBack(333);
         dll.pushBack(222);
         dll.pushBack(111);
@@ -291,7 +291,7 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_returnElement_withIndex0() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<Integer> dll = new DoubleLinkedList<>();
         dll.pushBack(111);
         dll.pushBack(222);
         dll.pushBack(333);
@@ -299,7 +299,7 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_returnElement_withTheLastIndex() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<Integer> dll = new DoubleLinkedList<>();
         dll.pushBack(111);
         dll.pushBack(222);
         dll.pushBack(333);
@@ -307,7 +307,7 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_pushFront_increasesSize_correctPositioning() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
         dll.pushFront("111");
         dll.pushFront("222");
         dll.pushFront("333");
@@ -319,12 +319,12 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_insertListAfterHead_correctOrder_correctSize() {
-        DoubleLinkedList<Object> dll0 = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll0 = new DoubleLinkedList<>();
         dll0.pushFront("111");
         dll0.pushFront("222");
         dll0.pushFront("333");
 
-        DoubleLinkedList<Object> dll1 = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll1 = new DoubleLinkedList<>();
         dll1.pushFront("aaa");
         dll1.pushFront("bbb");
         dll1.pushFront("ccc");
@@ -340,12 +340,12 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_insertListBeforeTail_correctOrder_correctSize() {
-        DoubleLinkedList<Object> dll0 = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll0 = new DoubleLinkedList<>();
         dll0.pushFront("111");
         dll0.pushFront("222");
         dll0.pushFront("333");
 
-        DoubleLinkedList<Object> dll1 = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll1 = new DoubleLinkedList<>();
         dll1.pushFront("aaa");
         dll1.pushFront("bbb");
         dll1.pushFront("ccc");
@@ -361,19 +361,19 @@ public class Task1_Tests extends Assert {
     }
     @Test
     public void DLL_getElement_withNegativeIndex_raisesException() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
         dll.pushBack("data");
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(-1));
     }
     @Test
     public void DLL_getElement_withIndexHigherThanSize_raisesException() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
         dll.pushBack("data");
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(2));
     }
     @Test
     public void DLL_getElement_withIndexEqualToSize_raisesException() {
-        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
         dll.pushBack("data");
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(1));
     }
