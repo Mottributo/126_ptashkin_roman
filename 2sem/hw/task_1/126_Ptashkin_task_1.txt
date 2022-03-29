@@ -1,0 +1,3 @@
+# шаблон <имя файла>|<номер_строки>|<до> -> <после>|<имя_теста>
+
+DynamicArray | 49 | data[size] = value; -> data[index] = value | insertElement_updatesSize_ShiftsCorrectly
