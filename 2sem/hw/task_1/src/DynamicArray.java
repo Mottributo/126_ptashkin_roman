@@ -18,7 +18,7 @@ public class DynamicArray<T> {
     }
 
     public void resize(int newSize) {
-        if(newSize > 0)
+        if(newSize < 0)
             throw new NegativeArraySizeException("Size can not be negative");
         if(newSize != capacity) {
             capacity = newSize;
