@@ -4,3 +4,4 @@
 DynamicArray | 49 | data[size] = value; -> data[index] = value | insertElement_updatesSize_ShiftsCorrectly
 DynamicArray | 15 | data = new Object[capacity] -> data = new Object[size] | setElements_removingElements_returnsProperSize
 DynamicArray | 21 | if(newSize > 0) -> if(newSize < 0)| setElements_resize_returnsProperSize_elementsAreLost
+DynamicArray | 27 | newSize = size -> size = newSize | resizeArrayTo0_successful

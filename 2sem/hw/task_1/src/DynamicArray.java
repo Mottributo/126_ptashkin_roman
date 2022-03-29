@@ -24,7 +24,7 @@ public class DynamicArray<T> {
             capacity = newSize;
             data = Arrays.copyOf(data, newSize);
         }
-        newSize = size;
+        size = newSize;
     }
     public T get(int index) {
         if(index < 0 || index > size)
