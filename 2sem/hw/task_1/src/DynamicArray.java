@@ -57,7 +57,7 @@ public class DynamicArray<T> {
         ++size;
     }
     public void popBack() {
-        if(size < 0)
+        if(size <= 0)
             throw new UnsupportedOperationException("Array is empty");
         --size;
         data[size] = null;
