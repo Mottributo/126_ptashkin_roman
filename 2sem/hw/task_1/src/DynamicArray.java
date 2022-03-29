@@ -63,7 +63,7 @@ public class DynamicArray<T> {
         data[size] = null;
     }
     public void remove(int index) {
-        if(index < 0 || index > size)
+        if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of bounds");
         for(int i = index + 1; i < size; ++i)
             data[i - 1] = data[i];
