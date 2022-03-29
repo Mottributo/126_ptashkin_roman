@@ -53,7 +53,7 @@ public class DynamicArray<T> {
             data = Arrays.copyOf(data, size * 2);
             capacity = size * 2;
         }
-        data[capacity] = value;
+        data[size] = value;
         ++size;
     }
     public void popBack() {

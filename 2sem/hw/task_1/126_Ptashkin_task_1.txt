@@ -8,3 +8,4 @@ DynamicArray | 27 | newSize = size -> size = newSize | resizeArrayTo0_successful
 DynamicArray | 30 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | getElement_WithIndexHigherThanSize_raisesException
 DynamicArray | 40 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | insertElementWithIndexHigherThanSize_raisesException
 DynamicArray | 66 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | removeElement_withIndexHigherThanSize_raisesException
+DynamicArray | 56 | data[capacity] = value; -> data[size] = value; | pushBack_changesSize_addsElementToTheEnd
