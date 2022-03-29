@@ -1,5 +1,8 @@
 # шаблон <имя файла>|<номер_строки>|<до> -> <после>|<имя_теста>
 # | | -> |
+# По структуре DynamicArray я решил, что по дефолту он генерируется с одной ячейкой со значением null. Возможно,
+# я ошибся насчет этого и на самом деле он генерируется со стандартным размером 1024, но т.к. тесты уже сверстаны,
+# а ТЗ по тому, как работает этот класс, нет, то оставляю это как есть.
 
 DynamicArray | 49 | data[size] = value; -> data[index] = value | insertElement_updatesSize_ShiftsCorrectly
 DynamicArray | 15 | data = new Object[capacity] -> data = new Object[size] | setElements_removingElements_returnsProperSize
@@ -11,3 +14,8 @@ DynamicArray | 66 | if(index < 0 || index > size) -> if(index < 0 || index >= si
 DynamicArray | 56 | data[capacity] = value; -> data[size] = value; | pushBack_changesSize_addsElementToTheEnd
 DynamicArray | 60 | if(size < 0) -> if(size <= 0) | popBackInTheEmptyArray_raisesException
 DynamicArray | 52 | if(capacity < size) -> if(capacity <= size) | pushBackElement_withLastIndex_successful
+DynamicArray | 42 | if(capacity < size) -> if(capacity <= size) | insertElement_intoTail_successful
+# Очевидно также наличие ошибки в строке 35, но она уже перехватывается java-примитивом списка. Исправлять не стал,
+# т.к. тест не выявил подвоха.
+
+
