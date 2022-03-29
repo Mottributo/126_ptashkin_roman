@@ -12,7 +12,7 @@ public class DynamicArray<T> {
         capacity = DefaultSize;
     }
     public DynamicArray(int size) {
-        data = new Object[capacity];
+        data = new Object[size];
         this.size = size;
         capacity = size;
     }
