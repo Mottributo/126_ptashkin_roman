@@ -385,4 +385,22 @@ public class Task1_Tests extends Assert {
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(1));
     }
 
+    // Node. The building brick of DoubleLinkedList.
+    // Should:
+    // Be generated with data, and return that data.
+    // Be generated with data and links to next and prev, and return data, next and prev properly.
+
+    @Test
+    public void createNode_returnData() {
+        Node<Object> node = new Node<>("stuff");
+        Assert.assertEquals("stuff", node.getData());
+    }
+    @Test
+    public void createNodes_withProperLinks() {
+        Node<Object> nodeBegin = new Node<>("begin");
+        Node<Object> nodeEnd = new Node<>("end");
+        Node<Object> nodeMid = new Node<>("stuff", nodeEnd, nodeBegin);
+        Assert.assertEquals(nodeBegin, nodeMid.getPrev());
+        Assert.assertEquals(nodeEnd, nodeMid.getNext());
+    }
 }
