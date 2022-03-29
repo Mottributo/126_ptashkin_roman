@@ -27,7 +27,7 @@ public class DynamicArray<T> {
         size = newSize;
     }
     public T get(int index) {
-        if(index < 0 || index > size)
+        if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of bounds");
         return (T)data[index];
     }

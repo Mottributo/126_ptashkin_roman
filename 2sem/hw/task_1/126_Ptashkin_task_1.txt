@@ -5,3 +5,4 @@ DynamicArray | 49 | data[size] = value; -> data[index] = value | insertElement_u
 DynamicArray | 15 | data = new Object[capacity] -> data = new Object[size] | setElements_removingElements_returnsProperSize
 DynamicArray | 21 | if(newSize > 0) -> if(newSize < 0)| setElements_resize_returnsProperSize_elementsAreLost
 DynamicArray | 27 | newSize = size -> size = newSize | resizeArrayTo0_successful
+DynamicArray | 30 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | getElement_WithIndexHigherThanSize_raisesException
