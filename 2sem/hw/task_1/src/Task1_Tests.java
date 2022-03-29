@@ -107,7 +107,7 @@ public class Task1_Tests extends Assert {
 
     }
     @Test
-    public void insertElements_updatesSize_shiftsCorrectly() {
+    public void insertElement_updatesSize_shiftsCorrectly() {
         DynamicArray<Object> dyna = new DynamicArray<>();
         dyna.insert(dyna.getSize() - 1, "data0");
         dyna.insert(dyna.getSize() - 1, "data1");
@@ -150,11 +150,11 @@ public class Task1_Tests extends Assert {
     }
 
     @Test
-    public void creatingDynArrayWithNegativeSize_raiseException() {
+    public void create_DynArrayWithNegativeSize_raiseException() {
         Assert.assertThrows(NegativeArraySizeException.class, () -> new DynamicArray<>(-1));
     }
     @Test
-    public void popInTheEmptyArray_raisesException() {
+    public void popBackInTheEmptyArray_raisesException() {
         DynamicArray<Object> dyna = new DynamicArray<>(0);
         Assert.assertThrows(UnsupportedOperationException.class, () ->dyna.popBack());
     }
@@ -174,7 +174,7 @@ public class Task1_Tests extends Assert {
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.insert(1, "DATA_CORRUPTED"));
     }
     @Test
-    public void addElement_withIndexHigherThanSize_raisesException() {
+    public void setElement_withIndexHigherThanSize_raisesException() {
         DynamicArray<Object> dyna = new DynamicArray<>(1000);
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dyna.set(1000, "DATA_CORRUPTED"));
     }
@@ -206,23 +206,176 @@ public class Task1_Tests extends Assert {
     //
     // What should DLL do without issues?
     // Be created, with 0 size, with 0 content. Head and tail return the same no-cell.
-    // Return True on being empty, empty after losing its latest element and True in all other cases.
-    // return proper size after adding some elements and removing some.
-    // return proper head and proper tail, for lists with length 0, 1, 2 and more.
-    // return elements with index 0, length-1 and in between.
+    // Return True on being empty, empty after losing its latest element and False in all other cases.
+    // Return proper size after adding elements and removing them.
+    // Return proper head and proper tail, for lists with length 0, 1, 2 and more.
+    // Return elements with index 0, length-1 and in between.
     // insertAfter adds a new node with the data provided after the specified one, increasing size.
     // insertBefore adds a new node with the data provided, BEFORE the specified one, increasing size.
     // pushBack adds an element before the beginning - head, increasing size.
-    // pushBack adds an element after the end - tail, increasing size.
+    // pushFront adds an element after the end - tail, increasing size.
     // removal unbinds the node specified from the DLL, decreasing size.
     // insertListAfter adds a new node sequence (another DLL) after the specified node,
     // increasing size by the size of the list.
     // same does insertListBefore, but well, before.
-
-    // Node is an element of the DoubleLinkedList.
-    // has data, a link to the previous element and a link to the next element.
-    // ListNode an interface realized by two elements, DummyNode and Node.
-    // What should Node do without issues?
-    // Change its value properly to any.
     //
+    // Throws an exception when:
+    // attempt to remove the dummy,
+    // try to get a node with a negative index or index => size;
+    // trying to remove the dummy node by removing head or tail of a 0-sized DLL.
+
+    @Test
+    public void createEmptyDLL_sizeEquals0() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        Assert.assertEquals(0, dll.getSize());
+    }
+    @Test
+    public void createEmptyDLL_isEmpty() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        Assert.assertEquals(true, dll.isEmpty());
+    }
+    @Test
+    public void createEmptyDLL_headAndTailAreTheSame() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        Assert.assertEquals(dll.getHead(), dll.getTail());
+    }
+    @Test
+    public void createDLL_removeElement_isEmpty() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack("some element");
+        dll.remove(dll.getHead());
+        Assert.assertEquals(true, dll.isEmpty());
+    }
+    @Test
+    public void createDLL_addElement_isNotEmpty() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack("some element");
+        Assert.assertEquals(false, dll.isEmpty());
+    }
+    @Test
+    public void DLL_pushBack_sizeIsCorrect_CorrectPosition() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack(333);
+        dll.pushBack(222);
+        dll.pushBack(111);
+        Assert.assertEquals(3, dll.getSize());
+        Assert.assertEquals(111, dll.get(0));
+        Assert.assertEquals(222, dll.get(1));
+        Assert.assertEquals(333, dll.get(2));
+    }
+    @Test
+    public void DLL_removeElement_sizeIsCorrect_correctPositioning() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack(333);
+        dll.pushBack(222);
+        dll.pushBack(111);
+
+        dll.remove(dll.get(1));
+        Assert.assertEquals(333, dll.get(0));
+        Assert.assertEquals(111, dll.get(1));
+        Assert.assertEquals(2, dll.getSize());
+
+        dll.remove(dll.get(1));
+        Assert.assertEquals(333, dll.get(0));
+        Assert.assertEquals(1, dll.getSize());
+
+        dll.remove(dll.get(0));
+        Assert.assertEquals(true, dll.isEmpty());
+    }
+
+    @Test
+    public void DLL_addElement_headAndTailAreTheSame() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack(1337);
+        Assert.assertEquals(dll.getTail(), dll.getHead());
+    }
+    @Test
+    public void DLL_returnElement_withIndex0() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack(111);
+        dll.pushBack(222);
+        dll.pushBack(333);
+        Assert.assertEquals(111, dll.get(0));
+    }
+    @Test
+    public void DLL_returnElement_withTheLastIndex() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack(111);
+        dll.pushBack(222);
+        dll.pushBack(333);
+        Assert.assertEquals(333, dll.get(2));
+    }
+    @Test
+    public void DLL_pushFront_increasesSize_correctPositioning() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushFront("111");
+        dll.pushFront("222");
+        dll.pushFront("333");
+        Assert.assertEquals("111", dll.get(0));
+        Assert.assertEquals("222", dll.get(1));
+        Assert.assertEquals("333",dll.get(2));
+        Assert.assertEquals(3, dll.getSize());
+
+    }
+    @Test
+    public void DLL_insertListAfterHead_correctOrder_correctSize() {
+        DoubleLinkedList<Object> dll0 = new DoubleLinkedList<>();
+        dll0.pushFront("111");
+        dll0.pushFront("222");
+        dll0.pushFront("333");
+
+        DoubleLinkedList<Object> dll1 = new DoubleLinkedList<>();
+        dll1.pushFront("aaa");
+        dll1.pushFront("bbb");
+        dll1.pushFront("ccc");
+
+        dll0.insertListAfter(dll0.getHead(), dll1);
+        Assert.assertEquals(6, dll0.getSize());
+        Assert.assertEquals("111", dll0.get(0));
+        Assert.assertEquals("aaa", dll0.get(1));
+        Assert.assertEquals("bbb", dll0.get(2));
+        Assert.assertEquals("ccc", dll0.get(3));
+        Assert.assertEquals("222", dll0.get(4));
+        Assert.assertEquals("333", dll0.get(5));
+    }
+    @Test
+    public void DLL_insertListBeforeTail_correctOrder_correctSize() {
+        DoubleLinkedList<Object> dll0 = new DoubleLinkedList<>();
+        dll0.pushFront("111");
+        dll0.pushFront("222");
+        dll0.pushFront("333");
+
+        DoubleLinkedList<Object> dll1 = new DoubleLinkedList<>();
+        dll1.pushFront("aaa");
+        dll1.pushFront("bbb");
+        dll1.pushFront("ccc");
+
+        dll0.insertListBefore(dll0.getTail(), dll1);
+        Assert.assertEquals(6, dll0.getSize());
+        Assert.assertEquals("111", dll0.get(0));
+        Assert.assertEquals("222", dll0.get(1));
+        Assert.assertEquals("aaa", dll0.get(2));
+        Assert.assertEquals("bbb", dll0.get(3));
+        Assert.assertEquals("ccc", dll0.get(4));
+        Assert.assertEquals("333", dll0.get(5));
+    }
+    @Test
+    public void DLL_getElement_withNegativeIndex_raisesException() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack("data");
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(-1));
+    }
+    @Test
+    public void DLL_getElement_withIndexHigherThanSize_raisesException() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack("data");
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(2));
+    }
+    @Test
+    public void DLL_getElement_withIndexEqualToSize_raisesException() {
+        DoubleLinkedList<Object> dll = new DoubleLinkedList<>();
+        dll.pushBack("data");
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(1));
+    }
+
 }
