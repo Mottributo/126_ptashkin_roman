@@ -18,5 +18,5 @@ DynamicArray | 42 | if(capacity < size) -> if(capacity <= size) | insertElement_
 # Очевидно также наличие ошибки в строке 35, но она уже перехватывается java-примитивом списка. Исправлять не стал,
 # т.к. тест не выявил подвоха.
 
-Node | 13 | this.next = prev; | -> this.next = next; | createNodes_withProperLinks
-Node | 14 | this.prev = next; | -> this.prev = prev; | createNodes_withProperLinks
+Node | 13 | this.next = prev; -> this.next = next; | createNodes_withProperLinks
+Node | 14 | this.prev = next; -> this.prev = prev; | createNodes_withProperLinks
