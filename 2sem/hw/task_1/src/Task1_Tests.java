@@ -384,6 +384,23 @@ public class Task1_Tests extends Assert {
         dll.pushBack("data");
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> dll.get(1));
     }
+    @Test
+    public void DLL_makeList_getProperHead() {
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
+        dll.pushFront("data");
+        dll.pushFront("datata");
+        dll.pushFront("datatata");
+        Assert.assertEquals("data", dll.getHead());
+    }
+    @Test
+    public void DLL_makeList_getProperTail() {
+        DoubleLinkedList<String> dll = new DoubleLinkedList<>();
+        dll.pushFront("data");
+        dll.pushFront("datata");
+        dll.pushFront("datatata");
+        Assert.assertEquals("datatata", dll.getTail());
+
+    }
 
     // Node. The building brick of DoubleLinkedList.
     // Should:
