@@ -54,9 +54,9 @@ public class Task1_Tests extends Assert {
         Assert.assertEquals(4, dyna.getSize());
         dyna.remove(1);
         Assert.assertEquals(3, dyna.getSize());
-        dyna.remove(3);
-        Assert.assertEquals(2, dyna.getSize());
         dyna.remove(2);
+        Assert.assertEquals(2, dyna.getSize());
+        dyna.remove(1);
         Assert.assertEquals(1, dyna.getSize());
         dyna.remove(0);
         Assert.assertEquals(0, dyna.getSize());
