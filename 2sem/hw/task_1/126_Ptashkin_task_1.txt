@@ -20,3 +20,5 @@ DynamicArray | 42 | if(capacity < size) -> if(capacity <= size) | insertElement_
 
 Node | 13 | this.next = prev; -> this.next = next; | createNodes_withProperLinks
 Node | 14 | this.prev = next; -> this.prev = prev; | createNodes_withProperLinks
+
+DoubleLinkedList | 11 | { return dummy == dummy; } -> { return size == 0; } | createDLL_addElement_isNotEmpty
