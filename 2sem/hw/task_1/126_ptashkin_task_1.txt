@@ -1,0 +1,35 @@
+# <имя файла>|<номер_строки>|<до> -> <после>|<имя_теста>
+#
+DynamicArray.java | 11 | size = 1; -> size = 0; | DA_create_sizeEquals0
+DynamicArray.java | 15 | data = new Object[capacity]; -> data = new Object[size]; | DA_getData_createWithSetSize_EachCellReturnsNull
+DynamicArray.java | 30 | if(index < 0 || index > size) -> if (index < 0 || index >= size) | DA_getData_FromEmpty_raisesException
+DynamicArray.java | 42 | if(capacity < size) -> if(capacity == size) | DA_insert_toLastIndex_increasesSize
+DynamicArray.java | 49 | data[size] = value; -> data[index] = value; | DA_insert_toLastIndex_addsData
+DynamicArray.java | 40 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | DA_insert_toLastIndex_addsData
+DynamicArray.java | 21 | if(newSize > 0) -> if(newSize < 0) | DA_resize_toSame_sizeNotChanged
+DynamicArray.java | 27 | newSize = size; -> size = newSize; | DA_resize_toHigher_sizeChanged
+DynamicArray.java | 35 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | DA_setData_FromEqualToSizeIndex_raisesCorrectException
+DynamicArray.java | 66 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | DA_remove_fromIndexEqualToSize_raisesException
+DynamicArray.java | 60 | if(size < 0) -> if(size == 0) | DA_popBack_toZeroSizeArray_raisesException
+DynamicArray.java | 56 | data[capacity] = value; -> data[size] = value; | DA_pushBack_toZeroSizeArray_addsData
+DynamicArray.java | 52 | if(capacity < size) { -> if(capacity == size) { | DA_pushBack_addsData_intoEnd
+#
+Node.java | 13 | this.next = prev; -> this.next = next; | node_createWithNeighbors_RealNextPointsToThis
+Node.java | 14 | this.prev = next; -> this.prev = prev; | node_createWithNeighbors_RealPrevPointsToThis
+#
+DoubleLinkedList.java | 33 | --size; -> ++size; | DLL_insertAfter_increasesSize
+DoubleLinkedList.java | 11 | return dummy == dummy; -> return dummy == getHead(); | DLL_isEmpty_addedNode_equalsFalse
+DoubleLinkedList.java | 24 | if(index < 0 || index > size) -> if(index < 0 || index >= size) | DLL_get_fromEmpty_raisesException
+DoubleLinkedList.java | 17 | return dummy.getPrev(); -> return dummy.getNext(); | DLL_getHead_afterInsertingTwoElements_headIsCorrect
+DoubleLinkedList.java | 20 | return dummy.getNext(); -> return dummy.getPrev(); | DLL_getTail_afterInsertingTwoElements_tailIsCorrect
+DoubleLinkedList.java | 44 | return insertAfter(getHead(), data); -> return insertAfter(getTail(), data); | DLL_pushBack_addsElementsInCorrectOrder
+DoubleLinkedList.java | 41 | return insertBefore(getTail(), data); -> return insertBefore(getHead(), data); | DLL_pushFront_addsElementsInCorrectOrder
+DoubleLinkedList.java | 47 | node.getPrev().setPrev(node.getNext()); -> node.getPrev().setNext(node.getNext()); | DLL_remove_head_setsNextElementAsHead
+DoubleLinkedList.java | 48 | node.getNext().setNext(node.getPrev()); -> node.getNext().setPrev(node.getPrev()); | DLL_remove_tail_setsNextElementAsTail
+DoubleLinkedList.java | 28 | cur = cur.getPrev(); -> cur = cur.getNext(); | DLL_get_returnsElementsInCorrectOrder
+DoubleLinkedList.java | 55 | list.getHead().setNext(node); -> list.getHead().setPrev(node); | DLL_insertListAfter_head_goingToTail_correctOrder
+DoubleLinkedList.java | 56 | list.getTail().setPrev(node.getNext()); -> list.getTail().setNext(node.getNext()); | DLL_insertListAfter_head_goingToHead_correctOrder
+DoubleLinkedList.java | 66 | list.getHead().setNext(node.getPrev()); -> list.getHead().setPrev(node.getPrev()); | DLL_insertListBefore_head_goingToTail_correctOrder
+DoubleLinkedList.java | 67 | list.getTail().setPrev(node); -> list.getTail().setNext(node); | DLL_insertListBefore_head_goingToHead_correctOrder
+DoubleLinkedList.java | 62 | } -> size += list.getSize(); } | DLL_insertListAfter_increasesSize
+DoubleLinkedList.java | 73 | } -> size += list.getSize(); } | DLL_insertListBefore_increasesSize
