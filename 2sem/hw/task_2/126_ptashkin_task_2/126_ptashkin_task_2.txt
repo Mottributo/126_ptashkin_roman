@@ -1,0 +1,16 @@
+# <имя файла>|<номер_строки>|<до> -> <после>|<имя_теста>
+BubbleSort.java | 5 | for(int i = 0; i < data.length - sps; ++i) { -> for(int i = 1; i < data.length - sps; ++i) { | BS_insertHomogenic_ofLength3_returnsSame
+BubbleSort.java | 6 | if(comparator.compare(data[i - 1], data[i]) < 0) { -> if(comparator.compare(data[i - 1], data[i]) > 0) { | BS_insertRandom_ofLength4_allNegatives_returnsSorted
+BubbleSort.java | 4 | for(int sps = 1; sps < data.length - 1; ++sps) { -> for(int sps = 0; sps < data.length - 1; ++sps) { | BS_insertRandom_ofLength4_returnsSorted
+#
+InsertionSort.java | 6 | while (cur > 0 && comparator.compare(data[cur - 1], data[cur]) <= 0){ -> while (cur > 0 && comparator.compare(data[cur - 1], data[cur]) > 0){ | IS_insertReversed_ofLength3_withNegatives_returnsSorted
+InsertionSort.java | 8 | ++cur; -> --cur; | IS_insertRandom_ofLength4_returnsSorted
+#
+SelectionSort.java | 5 | int maxInd = 1; -> int maxInd = 0; | SS_insertReversed_ofLength3_allNegatives_returnsSorted
+SelectionSort.java | 8 | maxInd = sortedSize; -> maxInd = i; | SS_insertReversed_ofLength4_returnsSorted
+#
+# Т.к. ошибки взаимозависимы и ломают метод целиком при исправлении по отдельности
+# (из-за всплывающего таким образом IndexOutOfBoundsException), возможно исправить лишь все три одновременно.
+SelectionSort.java | 4 | for(int sortedSize = 1; sortedSize < data.length - 1; ++sortedSize) { -> for(int sortedSize = 0; sortedSize < data.length - 1; ++sortedSize) { | SS_insertRandom_ofLength3_returnsSorted
+SelectionSort.java | 10 | T tmp = data[data.length -sortedSize]; -> T tmp = data[data.length -sortedSize - 1]; | SS_insertRandom_ofLength3_returnsSorted
+SelectionSort.java | 11 | data[data.length - sortedSize] = data[maxInd]; -> data[data.length - sortedSize - 1] = data[maxInd]; | SS_insertRandom_ofLength3_returnsSorted
