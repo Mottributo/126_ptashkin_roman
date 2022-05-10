@@ -1,0 +1,19 @@
+HeapSort.java | 10 | swap(0, data.length - sortedSize); -> swap(0, data.length - sortedSize - 1);| HS_insertHomogenic_ofLength2_returnsSame
+HeapSort.java | 17 | for (int i = start; i >= 1; --i) -> for (int i = start; i >= 0; --i) | HS_insertRandom_ofLength4_returnsSorted
+HeapSort.java | 18 | siftDown(i, 2 * i, 2 * i + 1, data.length); -> siftDown(i, 2 * i + 1, 2 * i + 2, data.length); | HS_insertHeapified_ofLength7_returnsSorted
+HeapSort.java | 38 | siftDown(right, 2 * right + 1, 2 * right + 2, data.length); -> siftDown(right, 2 * right + 1, 2 * right + 2, size); | HS_insertRandom_ofLength6_returnsSorted
+HeapSort.java | 34 | siftDown(left, 2 * left, 2 * left + 1, size); -> siftDown(left, 2 * left + 1, 2 * left + 2, size); | HS_insertRandom_ofLength8_returnsSorted
+#
+MergeSort.java | 35 | else if (comparator.compare(from[firstFocus], from[secondFocus]) > 0) -> else if (comparator.compare(from[firstFocus], from[secondFocus]) < 0) | MS_insertReversed_ofLength3_middleNegativeExceptional_returnsSorted
+MergeSort.java | 19 | merge(buffer, sorting, begin, middle - begin, end - middle); -> merge(buffer, sorting, begin, middle - begin + 1, end - middle); | MS_insertReversed_ofLength2_withNegatives_returnsSorted
+MergeSort.java | 17 | mergeSortRec(sorting, buffer, begin, middle); -> mergeSortRec(buffer, sorting, begin, middle); | MS_insertRandom_ofLength4_allNegatives_returnsSorted
+MergeSort.java | 34 | to[resPos++] = from[firstFocus--]; -> to[resPos++] = from[firstFocus++];| MS_insertReversed_ofLength3_beginningExceptional_returnsSorted
+MergeSort.java | 18 | mergeSortRec(sorting, buffer, middle + 1, end); -> mergeSortRec(buffer, sorting, middle + 1, end); | MS_insertReversed_ofLength4_returnsSorted
+MergeSort.java | 32 | to[resPos] = from[secondFocus++]; -> to[resPos++] = from[secondFocus++]; | MS_insertRandom_ofLength4_allNegatives_returnsSorted
+#
+QuickSort | 24 | swap(data, left, baseElem); -> swap(data, left - 1, baseElem); | MS_insertSorted_ofLength2_returnsSame
+QuickSort | 12 | int base = split(data, e, b); -> int base = split(data, b, e); | MS_insertSorted_ofLength2_returnsSame
+QuickSort | 13 | qSortRec(data, b, base - 2); -> qSortRec(data, b, base - 1); | QS_insertHeapified_ofLength7_returnsSorted
+QuickSort | 14 | qSortRec(data, base + 2, e); -> qSortRec(data, base + 1, e); | QS_insertHeapified_ofLength7_returnsSorted
+QuickSort | 29 | swap(data, left + 1, right) -> swap(data, left, right); | QS_insertHeapified_ofLength7_returnsSorted
+QuickSort | 25 | baseElem = left; -> baseElem = left - 1; | QS_insertHeapified_ofLength7_returnsSorted
